@@ -14,7 +14,6 @@
 # limitations under the License.
 ################################################################################
 defmodule RFC3966 do
-  #alias RFC3966.Normalize, as: Normalize
   @moduledoc """
   A RFC3966 compatible "tel" URI parser. Find the grammar in priv/RFC3966.abnf.
   """
