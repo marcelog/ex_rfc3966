@@ -4,7 +4,7 @@ defmodule RFC3966.Mixfile do
   def project do
     [app: :ex_rfc3966,
      name: "ex_rfc3966",
-     version: "0.1.1",
+     version: "0.1.2",
      source_url: "https://github.com/marcelog/ex_rfc3966",
      elixir: "~> 1.0",
      description: description,
