@@ -47,7 +47,7 @@ defmodule RFC3966 do
     }
     case ABNF.apply grammar, "telephone_uri", text, state do
       nil -> nil
-      {matched, rest, state} -> {matched, rest, state}
+      {matched, _, rest, state} -> {matched, rest, state}
     end
   end
 end

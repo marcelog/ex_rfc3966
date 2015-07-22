@@ -4,12 +4,12 @@ telephone-subscriber = global-number / local-number
 
 global-number        = global-number-digits *par !!!
   [number|_] = tokens
-  {:ok, %{state | global: true, number: number}}
+  {:ok, %{state | global: true, number: :lists.flatten(number)}}
 !!!
 
 local-number         = local-number-digits *par context *par !!!
   [number|_] = tokens
-  {:ok, %{state | local: true, number: number}}
+  {:ok, %{state | local: true, number: :lists.flatten(number)}}
 !!!
 
 par                  = parameter / extension / isdn-subaddress
@@ -25,13 +25,13 @@ extension            = ";ext=" 1*phonedigit !!!
 !!!
 
 context              = ";phone-context=" descriptor !!!
-  [_, context] = tokens
+  [_, [[context]]] = tokens
   {:ok, %{state | context: context}}
 !!!
 
 descriptor           = domainname / global-number-digits !!!
   [descriptor] = tokens
-  {:ok, %{state | descriptor: descriptor}}
+  {:ok, %{state | descriptor: :lists.flatten(descriptor)}}
 !!!
 
 global-number-digits = "+" *phonedigit DIGIT *phonedigit
@@ -42,10 +42,12 @@ toplabel             = ALPHA / ALPHA *( alphanum / "-" ) alphanum
 
 parameter            = ";" pname ["=" pvalue ] !!!
   {name, value} = case tokens do
-    [_, name, []] -> {name, nil}
-    [_, name, [_|value]] -> {name, value}
+    [_, name, []] -> {:lists.flatten(name), nil}
+    [_, name, value] ->
+      value = tl(:lists.flatten(value))
+      {:lists.flatten(name), value}
   end
-  {:ok, %{state | params: Map.put(state.params, name, value)}}
+  {:ok, %{state |params: Map.put(state.params, name, value)}}
 !!!
 
 pname                = 1*( alphanum / "-" )

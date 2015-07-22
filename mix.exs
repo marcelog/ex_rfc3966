@@ -24,7 +24,7 @@ defmodule RFC3966.Mixfile do
 
   defp deps do
     [
-      {:ex_abnf, "~> 0.1.4"},
+      {:ex_abnf, "~> 0.1.6"},
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.7", only: :dev}
     ]
