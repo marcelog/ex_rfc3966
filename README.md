@@ -9,9 +9,9 @@ This project uses [ex_abnf](https://github.com/marcelog/ex_abnf) with the offici
 ## Example
 
     iex> RFC3966.init # Call this one first to initialize the grammar.
-    iex> {['tel:', _matched_tel], _not_matched_input, result} = RFC3966.parse 'tel:+1-201-555-0123;param1;param2=value'
+    iex> {_matched_tel, _not_matched_input, result} = RFC3966.parse 'tel:+1-201-555-0123;param1;param2=value'
     iex> result
-    %{
+    %RFC3966.Result{
         context: nil,
         descriptor: nil,
         ext: nil,
@@ -29,7 +29,7 @@ To use it in your Mix projects, first add it as a dependency:
 
 ```elixir
 def deps do
-  [{:ex_rfc3966, "~> 0.1.2"}]
+  [{:ex_rfc3966, "~> 0.2.0"}]
 end
 ```
 Then run mix deps.get to install it.

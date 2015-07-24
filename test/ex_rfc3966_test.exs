@@ -22,9 +22,9 @@ defmodule RFC3966Test do
     RFC3966.init
 
     {
-      ['tel:', '+1-201-555-0123'],
+      'tel:+1-201-555-0123',
       [],
-      %{
+      %RFC3966.Result{
         context: nil,
         descriptor: nil,
         ext: nil,
@@ -37,9 +37,9 @@ defmodule RFC3966Test do
     } = RFC3966.parse 'tel:+1-201-555-0123'
 
     {
-      ['tel:', '7042;phone-context=example.com'],
+      'tel:7042;phone-context=example.com',
       [],
-      %{
+      %RFC3966.Result{
         context: 'example.com',
         descriptor: 'example.com',
         ext: nil,
@@ -52,9 +52,9 @@ defmodule RFC3966Test do
     } = RFC3966.parse 'tel:7042;phone-context=example.com'
 
     {
-      ['tel:', '863-1234;phone-context=+1-914-555'],
+      'tel:863-1234;phone-context=+1-914-555',
       [],
-      %{
+      %RFC3966.Result{
         context: '+1-914-555',
         descriptor: '+1-914-555',
         ext: nil,
@@ -67,9 +67,9 @@ defmodule RFC3966Test do
     } = RFC3966.parse 'tel:863-1234;phone-context=+1-914-555'
 
     {
-      ['tel:', '+1-201-555-0123;param1;param2=value'],
+      'tel:+1-201-555-0123;param1;param2=value',
       [],
-      %{
+      %RFC3966.Result{
         context: nil,
         descriptor: nil,
         ext: nil,
