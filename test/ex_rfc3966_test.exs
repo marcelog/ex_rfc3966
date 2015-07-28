@@ -14,13 +14,28 @@
 # limitations under the License.
 ################################################################################
 defmodule RFC3966Test do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest RFC3966
   require Logger
 
-  test "some numbers" do
-    RFC3966.init
+  @on_load :init
 
+  def init do
+    me = self
+    spawn fn ->
+      RFC3966.init
+      send me, :done
+      receive do
+        _ -> :ok
+      end
+    end
+    receive do
+      :done -> :ok
+    end
+    :ok
+  end
+
+  test "some numbers" do
     {
       'tel:+1-201-555-0123',
       [],
