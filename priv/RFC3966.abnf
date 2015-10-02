@@ -4,11 +4,15 @@ telephone-subscriber = global-number / local-number
 
 global-number        = global-number-digits *par !!!
   [number|_] = string_values
+  _ = values
+  _ = rule
   {:ok, %{state | global: true, number: :lists.flatten(number)}}
 !!!
 
 local-number         = local-number-digits *par context *par !!!
   [number|_] = string_values
+  _ = values
+  _ = rule
   {:ok, %{state | local: true, number: :lists.flatten(number)}}
 !!!
 
@@ -16,20 +20,28 @@ par                  = parameter / extension / isdn-subaddress
 
 isdn-subaddress      = ";isub=" 1*paramchar !!!
   [_, isub] = string_values
+  _ = values
+  _ = rule
   {:ok, %{state | isub: isub}}
 !!!
 
 extension            = ";ext=" 1*phonedigit !!!
   [_, ext] = string_values
+  _ = values
+  _ = rule
   {:ok, %{state | ext: ext}}
 !!!
 
 context              = ";phone-context=" descriptor !!!
+  _ = values
+  _ = rule
   [_, context] = string_values
   {:ok, %{state | context: context}}
 !!!
 
 descriptor           = domainname / global-number-digits !!!
+  _ = values
+  _ = rule
   [descriptor] = string_values
   {:ok, %{state | descriptor: :lists.flatten(descriptor)}}
 !!!
@@ -41,6 +53,8 @@ domainlabel          = alphanum / alphanum *( alphanum / "-" ) alphanum
 toplabel             = ALPHA / ALPHA *( alphanum / "-" ) alphanum
 
 parameter            = ";" pname ["=" pvalue ] !!!
+  _ = values
+  _ = rule
   {name, value} = case string_values do
     [_, name, []] -> {:lists.flatten(name), nil}
     [_, name, value] ->
