@@ -4,7 +4,7 @@ defmodule RFC3966.Mixfile do
   def project do
     [app: :ex_rfc3966,
      name: "ex_rfc3966",
-     version: "0.2.3",
+     version: "0.2.4",
      source_url: "https://github.com/marcelog/ex_rfc3966",
      elixir: "~> 1.0",
      description: description,
@@ -24,9 +24,9 @@ defmodule RFC3966.Mixfile do
 
   defp deps do
     [
-      {:ex_abnf, "~> 0.2.7"},
-      {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.7", only: :dev}
+      {:ex_abnf, "~> 0.2.8"},
+      {:earmark, "~> 0.2.1", only: :dev},
+      {:ex_doc, "~> 0.12.0", only: :dev}
     ]
   end
 
