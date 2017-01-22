@@ -21,7 +21,7 @@ defmodule RFC3966Test do
   @on_load :init
 
   def init do
-    me = self
+    me = self()
     spawn fn ->
       RFC3966.init
       send me, :done
